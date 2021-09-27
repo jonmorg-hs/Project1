@@ -1,5 +1,5 @@
 # Project1
-vacCINation
+vacCINation as a project name? Using the words vacation and vaccination, i thought about Vaccinacation/Vaccication, but found already being used. JabandGo was another thought but same, being used. Was thinking about CIN being Country I Need in vac-cin-ation
 
 To get us up and running with the basic concept discussed, so we can bounce around some ideas and get tasks for each individual setup.
 
