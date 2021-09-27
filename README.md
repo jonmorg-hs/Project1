@@ -5,7 +5,7 @@ To get us up and running with the basic concept discussed, so we can bounce arou
 
 https://jonmorg-hs.github.io/Project1/
 
-<img src="assets/images/screenshot_project.png" >
+<img src="assets/images/screenshot_project1.png" >
 
 Using Jquery, leaflet.js, leaflet.css
 
