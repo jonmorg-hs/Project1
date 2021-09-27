@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Weather Dashboard</title>
+    <title>vac CIN ation</title>
     <link rel="stylesheet" href="assets/css/style.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
@@ -15,11 +15,18 @@
 <div id="map"></div>
 <div id="search">
  <label>Travelling From</label><br/>
- <select id='country_from'></select><br/><br/> 
+ <select id='country_from'><option selected value=''>Choose</option></select><br/><br/> 
  <label>Travelling To</label><br/>
- <select id='country_to'></select><br/>  
+ <select id='country_to'><option selected value=''>Choose</option></select><br/><br/> 
+ <label id="fav">Favourites</label><br/>
 </div>
+<div id="result"></div>
 <div id="favourites"></div>
+<div id="confirm">
+<div id="confirm_text"></div>
+<div class="btn" id="save">OK</div> 
+<div class="btn" id="cancel">Cancel</div>   
+</div>
     <script src="assets/js/script.js" ></script>
   </body>
   </html>  

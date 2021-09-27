@@ -16,11 +16,14 @@ html,body{
     z-index:1;
     top:10px;
     left:10px;
-    width:300px;
-    height:100px;
+    width:200px;
+    height:140px;
     padding:5px;
     background-color:white;
     text-align:left;
+    border: normal 2px solid;
+    border-radius:10px;
+    box-shadow: 5px 5px 5px 5px gray;
 }
 #search label{
     font:normal 16px Arial;
@@ -32,4 +35,70 @@ html,body{
 }
 #favourites{
     display:none;
+    position:absolute;
+    z-index:1;
+    top:170px;
+    left:10px;
+    width:200px;
+    max-height:calc(100% - 190px);
+    padding:5px;
+    background-color:white;
+    text-align:left;
+    overflow:scroll;
+    border: normal 2px solid;
+    border-radius:10px;
+    box-shadow: 5px 5px 5px 5px gray; 
+}
+#result{
+    display:none;
+    position:absolute;
+    z-index:1;
+    top:10px;
+    right:10px;
+    width:500px;
+    height:calc(100% - 30px);
+    padding:5px;
+    background-color:white;
+    text-align:left;
+    overflow:scroll; 
+    border: normal 2px solid;
+    border-radius:10px;
+    box-shadow: 5px 5px 5px 5px gray;   
+}
+#fav{
+    cursor:pointer;
+}
+.favs{
+    font:normal 16px Arial;
+    cursor:pointer;
+}
+#confirm{
+    display:none;
+    position:absolute;
+    z-index:2;
+    top:50%;
+    margin-top:-50px;
+    left:50%;
+    margin-left:-125px;
+    width:250px;
+    height:90px;
+    padding:5px;
+    background-color:white;
+    text-align:center;
+    border: normal 2px solid;
+    border-radius:10px;
+    box-shadow: 5px 5px 5px 5px gray;     
+}
+#confirm_text{
+    font:normal 16px arial;
+}
+.btn{
+    cursor:pointer;
+    margin-top:5px;
+    border:none;
+    border-radius:3px;
+    background-color:#66b2ff;
+    color:white;
+    font: normal 18px arial;
+    width:100%;   
 }
