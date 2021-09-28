@@ -88,6 +88,7 @@ $("#save").on("click",function(){
   $('.favs').mousedown(function(event) {
     switch (event.which) {
         case 1:
+          $('#result').empty().append("<h2>"+$(this).html()+"</h2>").show(); 
             break;
         case 2:
             break;
