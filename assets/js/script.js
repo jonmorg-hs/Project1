@@ -175,3 +175,11 @@ $("#remove_ok").on("click", function () {
 $("#remove_cancel").on("click", function () {
   $("#remove").hide();
 });
+
+$("#navHide").on("click", function () {
+  if ($("#navHide").style.display === "block") {
+    $("#navHide").style.display = "none";
+  } else {
+    $("#navHide").style.display = "block";
+  }
+});
