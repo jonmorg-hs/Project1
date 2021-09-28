@@ -53,24 +53,22 @@ function onEachFeature(feature, layer) {
 
 // rename to onClick
 function whenClicked(e) {
+  destination = e.target.feature.properties.name;
   var coords = e.target.feature.geometry.coordinates[0];
   var bounds = L.latLngBounds();
   for (var i = 0; i < coords.length; i++) {
     bounds.extend(L.latLng(coords[i][1], coords[i][0]));
   }
   map.fitBounds(bounds);
-  $("#country_to").val(e.target.feature.properties.name);
-  destination = e.target.feature.properties.name;
+  $("#country_to").val(destination);
   //RUN COVID API AND DISPLAY RESPONSE
   $("#result")
     .empty()
-    .append("<h2>" + e.target.feature.properties.name + "</h2>")
+    .append("<h2>" + destination + "</h2>")
     .show();
-  if (!favourites.includes(e.target.feature.properties.name)) {
+  if (!favourites.includes(destination)) {
     $("#confirm_text").html(
-      "Do you wish to add " +
-        e.target.feature.properties.name +
-        " to your favourites"
+      "Do you wish to add " + destination + " to your favourites"
     );
     $("#confirm").show();
   }
@@ -101,19 +99,17 @@ $("#country_to").on("change", function () {
       }
     }
   }
-
   var bounds = L.latLngBounds();
   var latcheck = coords[0][1];
-  console.log(latcheck);
   for (var i = 0; i < coords.length; i++) {
     if (coords[i][1] !== latcheck) {
       bounds.extend(L.latLng(coords[i][1], coords[i][0]));
     }
   }
   map.fitBounds(bounds);
-  if (!favourites.includes($(this).val())) {
+  if (!favourites.includes(destination)) {
     $("#confirm_text").html(
-      "Do you wish to add " + $(this).val() + " to your favourites"
+      "Do you wish to add " + destination + " to your favourites"
     );
     $("#confirm").show();
   }
@@ -126,7 +122,11 @@ $("#fav").on("click", function () {
 function getFavourites() {
   $("#favourites").empty();
   for (var i = 0; i < favourites.length; i++) {
-    $("#favourites").append("<div class='favs'>" + favourites[i] + "</div>");
+    $("#favourites").append(
+      "<div class='favs'>" +
+        favourites[i] +
+        "<img src='assets/images/bin.png' class='bin' /></div>"
+    );
   }
 }
 
@@ -150,32 +150,26 @@ $(".favs").on("click", function () {
     .show();
 });
 
-$(".favs").mousedown(function (event) {
-  switch (event.which) {
-    case 1:
-      $("#result")
-        .empty()
-        .append("<h2>" + $(this).html() + "</h2>")
-        .show();
-      break;
-    case 3:
-      // todo: replace with a modal
-      var check = confirm(
-        "Do you want to remove " + $(this).html() + " from your favorites?"
-      );
-      if (check) {
-        var favdata = [];
-        for (var i = 0; i < favourites.length; i++) {
-          if (favourites[i] == $(this).html()) {
-          } else {
-            favdata.push(favourites[i]);
-          }
-        }
-        favourites = favdata;
-        localStorage.setItem("favourites", JSON.stringify(favourites));
-        getFavourites();
-      }
-      break;
-    default:
+$(".bin").on("click", function () {
+  $("#remove_text").html(
+    "Do you wish to remove " + destination + " from your favourites"
+  );
+  $("#remove").show();
+});
+
+$("#remove_ok").on("click", function () {
+  var favdata = [];
+  for (var i = 0; i < favourites.length; i++) {
+    if (favourites[i] == destination) {
+    } else {
+      favdata.push(favourites[i]);
+    }
   }
+  favourites = favdata;
+  localStorage.setItem("favourites", JSON.stringify(favourites));
+  getFavourites();
+});
+
+$("#remove_cancel").on("click", function () {
+  $("#remove").hide();
 });
