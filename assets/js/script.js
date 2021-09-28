@@ -61,13 +61,17 @@ $("#fav").on("click",function(){
   $("#favourites").show();
 });
 
+function getFavourites(){
 for(var i=0;i<favourites.length;i++){
-    $("#favourites").append("<div class='favs'>"+favourites[i]+"</div>"); 
+    $("#favourites").empty().append("<div class='favs'>"+favourites[i]+"</div>"); 
+}
 }
 
 $("#save").on("click",function(){
     favourites.push(destination);
     localStorage.setItem("favourites",JSON.stringify(favourites));
+    $("#confirm").hide();
+    getFavourites();
   });
 
   $("#cancel").on("click",function(){
