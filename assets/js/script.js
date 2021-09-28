@@ -177,9 +177,5 @@ $("#remove_cancel").on("click", function () {
 });
 
 $("#navHide").on("click", function () {
-  if ($("#navHide").style.display === "block") {
-    $("#navHide").style.display = "none";
-  } else {
-    $("#navHide").style.display = "block";
-  }
+  $("#links").toggle();
 });
