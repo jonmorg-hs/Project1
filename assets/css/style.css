@@ -8,10 +8,12 @@ body {
   margin: 0px;
 }
 .navbar {
-  position: fixed;
-  width: 100%;
-  top: 0;
-  left: 0;
+  overflow: hidden;
+  background-color: rgb(46, 148, 52);
+  position: relative;
+}
+.navbar #links {
+  display: none;
 }
 #map {
   width: 100%;
