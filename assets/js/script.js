@@ -47,12 +47,11 @@ function onEachFeature(feature, layer) {
       "</option>"
   );
   layer.on({
-    click: whenClicked,
+    click: onClick,
   });
 }
 
-// rename to onClick
-function whenClicked(e) {
+function onClick(e) {
   destination = e.target.feature.properties.name;
   var coords = e.target.feature.geometry.coordinates[0];
   var bounds = L.latLngBounds();
@@ -144,13 +143,15 @@ $("#cancel").on("click", function () {
 });
 
 $(".favs").on("click", function () {
+  //ADD get COVID API and response
   $("#result")
     .empty()
-    .append("<h2>" + $(this).html() + "</h2>")
+    .append("<h2>" + $(this).text() + "</h2>")
     .show();
 });
 
 $(".bin").on("click", function () {
+  destination = $(this).parent().text();
   $("#remove_text").html(
     "Do you wish to remove " + destination + " from your favourites"
   );
@@ -158,6 +159,7 @@ $(".bin").on("click", function () {
 });
 
 $("#remove_ok").on("click", function () {
+  $("#remove").hide();
   var favdata = [];
   for (var i = 0; i < favourites.length; i++) {
     if (favourites[i] == destination) {
