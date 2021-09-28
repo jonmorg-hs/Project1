@@ -7,6 +7,8 @@ https://jonmorg-hs.github.io/Project1/
 
 <img src="assets/images/screenshot_project1.png" >
 
+<img src="assets/images/screenshot_project2.png" >
+
 Using Jquery, leaflet.js, leaflet.css
 
 geojson.xyz to get country polygons in geojson format
@@ -21,6 +23,8 @@ Immediate Tasks:
 2. decide on the travel restrictions API, and then get a response for country selected. Need to add a div to show the response.
 3. Should be able to use same API on page load to get all the statistics and can color code the geojson polygons accordingly. Using same stats can present summary data.
 4. Make country selection, save to favourites in local storage.
+
+1 & 4. Done
 
 
 
