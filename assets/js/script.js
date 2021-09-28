@@ -1,4 +1,5 @@
 var destination;
+var geojson = [];
 var favourites = [];
 if(localStorage.getItem("favourites")==null){
 favourites = ['New Zealand','Canada'];
@@ -20,6 +21,7 @@ $('#country_from').val('Australia');
 });
 
 function onEachFeature(feature, layer) {
+    geojson.push(feature);
     $('#country_from').append("<option value='"+feature.properties.name+"'>"+feature.properties.name+"</option>");
     $('#country_to').append("<option value='"+feature.properties.name+"'>"+feature.properties.name+"</option>");
     layer.on({
@@ -27,7 +29,13 @@ function onEachFeature(feature, layer) {
     });
 }
 
-function whenClicked(e) {
+function whenClicked(e) { 
+  var coords = e.target.feature.geometry.coordinates[0];
+  var bounds = L.latLngBounds();
+  for(var i=0;i<coords.length-1;i++){
+  bounds.extend(L.latLng(coords[i][1], coords[i][0]));
+  }
+  map.fitBounds(bounds);
   $('#country_to').val(e.target.feature.properties.name);
   destination = e.target.feature.properties.name;
   //RUN COVID API AND DISPLAY RESPONSE
@@ -51,6 +59,23 @@ function areaStyle(feature){
 $("#country_to").on("change",function(){
     $('#result').empty().append("<h2>"+$(this).val()+"</h2>").show();
     destination = $(this).val();
+    var check=0;
+    for(var j=0;j<geojson.length;j++){
+    if(check==0){
+    if(geojson[j]['properties']['name']==$(this).val()){
+      var coords = geojson[j]['geometry']['coordinates'][0];
+      if(coords.length>10){
+      check = 1;
+      }
+    }}}
+    var bounds = L.latLngBounds();
+    var latcheck = coords[0][1];
+    console.log(latcheck);
+    for(var i=0;i<coords.length;i++){
+    if(coords[i][1]==latcheck){} else {
+    bounds.extend(L.latLng(coords[i][1], coords[i][0]));
+    }}
+    map.fitBounds(bounds);
     if(favourites.includes($(this).val())){} else {
        $("#confirm_text").html("Do you wish to add "+$(this).val()+" to your favourites");
        $("#confirm").show(); 
