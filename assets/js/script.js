@@ -58,14 +58,14 @@ $("#country_to").on("change",function(){
 });
 
 $("#fav").on("click",function(){
-  $("#favourites").show();
+  $("#favourites").toggle();
 });
 
 function getFavourites(){
 $("#favourites").empty();
-for(var i=0;i<favourites.length;i++){
+$(favourites).each(function(i){
 $("#favourites").append("<div class='favs'>"+favourites[i]+"</div>"); 
-}
+})
 }
 
 getFavourites();
