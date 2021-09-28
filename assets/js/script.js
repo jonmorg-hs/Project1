@@ -72,7 +72,6 @@ getFavourites();
 
 $("#save").on("click",function(){
     favourites.push(destination);
-    alert(JSON.stringify(favourites));
     localStorage.setItem("favourites",JSON.stringify(favourites));
     $("#confirm").hide();
     getFavourites();
@@ -85,4 +84,28 @@ $("#save").on("click",function(){
   $(".favs").on("click",function(){
     $('#result').empty().append("<h2>"+$(this).html()+"</h2>").show(); 
   })
+
+  $('.favs').mousedown(function(event) {
+    switch (event.which) {
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3:
+            var check = confirm("Do you want to remove "+$(this).html()+" from your favorites?");
+            if(check){
+                var favdata = [];
+                for(var i=0;i<favourites.length;i++){
+                if(favourites[i]==$(this).html()) {}  else {
+                  favdata.push(favourites[i]);  
+                }  
+            }
+            favourites=favdata;
+            localStorage.setItem('favourites',JSON.stringify(favourites));
+            getFavourites();
+        } 
+            break;
+        default:
+    }
+});
   
