@@ -10,14 +10,16 @@ body {
 
 header {
   position: relative;
-  max-width: 100%;
-  max-height: 100%;
   min-height: 300px;
-  height: auto;
   background-image: url("./../images/beachBackground.jpg");
   border-bottom: 2px solid #333;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
 }
 header div {
+  font-size: 30px;
   position: absolute;
   width: 100%;
   top: 50%;
