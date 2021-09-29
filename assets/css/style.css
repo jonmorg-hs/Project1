@@ -154,7 +154,8 @@ header div {
   width: 100%;
 }
 .bin {
-  margin-left: 20px;
+  float: right;
+  margin-right: 5px;
   cursor: pointer;
-  height: 20px;
+  height: 16px;
 }
