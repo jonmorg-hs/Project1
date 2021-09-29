@@ -15,8 +15,14 @@ header {
   min-height: 300px;
   height: auto;
   background-image: url("./../images/beachBackground.jpg");
+  border-bottom: 2px solid #333;
 }
-
+header div {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  text-align: center;
+}
 .navbar {
   overflow: hidden;
   background-color: #333;
@@ -57,7 +63,7 @@ header {
 #search {
   position: absolute;
   z-index: 1;
-  top: 10px;
+  top: 310px;
   left: 10px;
   width: 200px;
   height: 140px;
@@ -80,7 +86,7 @@ header {
   display: none;
   position: absolute;
   z-index: 1;
-  top: 170px;
+  top: 470px;
   left: 10px;
   width: 200px;
   max-height: calc(100% - 190px);
