@@ -37,7 +37,7 @@ header div {
 .navbar a {
   float: left;
   color: white;
-
+  cursor: pointer;
   font-size: 18px;
   text-decoration: none;
 }
@@ -104,7 +104,7 @@ header div {
   display: none;
   position: absolute;
   z-index: 1;
-  top: 10px;
+  top: 310px;
   right: 10px;
   width: 500px;
   height: calc(100% - 30px);
