@@ -116,7 +116,7 @@ $("#country_to").on("change", function () {
       bounds.extend(L.latLng(coords[i][1], coords[i][0]));
     }
   }
-  map.fitBounds(bounds);
+  //map.fitBounds(bounds);
   if (!favourites.includes(destination)) {
     $("#confirm_text").html(
       "Do you wish to add " + destination + " to your favourites"
@@ -208,10 +208,14 @@ $("#hideHeader").on("click", function () {
   $("#search").css({ top: "62px" });
 });
 
+//function for later pan to country.
 function getCountryResult() {
   for (let i = 0; i < covidData.length; i++) {
     if (covidData[i].country === destination) {
       console.log(covidData[i].deaths);
+      console.log(covidData[i].latitude);
+      console.log(covidData[i].longitude);
+      //map.panTo(covidData[i].latitude, covidData[i].longitude);
     }
   }
 }
