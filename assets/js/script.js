@@ -1,6 +1,7 @@
 var destination;
 var geojson = [];
 var favourites = [];
+var covidData;
 if (localStorage.getItem("favourites") === null) {
   favourites = ["New Zealand", "Canada"];
 } else {
@@ -30,6 +31,19 @@ $.getJSON(
   }
 );
 
+function getApi() {
+  fetch("https://covid19-api.com/country/all?format=json")
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data);
+      covidData = data;
+      console.log(covidData);
+    });
+}
+
+getApi();
 function onEachFeature(feature, layer) {
   geojson.push(feature);
   $("#country_from").append(
@@ -61,6 +75,7 @@ function onClick(e) {
   map.fitBounds(bounds);
   $("#country_to").val(destination);
   //RUN COVID API AND DISPLAY RESPONSE
+
   $("#result")
     .empty()
     .append("<h2>" + destination + "</h2>")
@@ -146,6 +161,7 @@ $(".favs").on("click", function () {
   $("#result")
     .empty()
     .append("<h2>" + $(this).text() + "</h2>")
+
     .show();
 });
 
