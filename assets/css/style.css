@@ -8,6 +8,11 @@ body {
   margin: 0px;
 }
 
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
 header {
   position: relative;
   min-height: 300px;
