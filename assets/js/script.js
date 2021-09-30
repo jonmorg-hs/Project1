@@ -178,3 +178,11 @@ $("#remove_cancel").on("click", function () {
 $("#navHide").on("click", function () {
   $("#links").toggle();
 });
+
+$("#showHeader").on("click", function () {
+  $("header").show();
+  $("#map").css({ top: "0", height: "calc(100% - 300px)" });
+  $("#result").css({ top: "310px", height: "calc(100% - 300px)" });
+  $("#favourites").css({ top: "470px", maxHeight: "calc(100% - 190px)" });
+  $("#search").css({ top: "310px" });
+});
