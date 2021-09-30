@@ -186,3 +186,11 @@ $("#showHeader").on("click", function () {
   $("#favourites").css({ top: "470px", maxHeight: "calc(100% - 190px)" });
   $("#search").css({ top: "310px" });
 });
+
+$("#hideHeader").on("click", function () {
+  $("header").hide();
+  $("#map").css({ top: "52px", height: "calc(100% - 52px)" });
+  $("#result").css({ top: "62px", height: "calc(100% - 82px)" });
+  $("#favourites").css({ top: "222px", maxHeight: "calc(100% - 242px)" });
+  $("#search").css({ top: "62px" });
+});
