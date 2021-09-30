@@ -69,8 +69,8 @@ header div {
   left: 10px;
   width: 200px;
   height: 140px;
-  padding: 5px;
-  background-color: white;
+  padding: 30px 30px 45px;
+  background-color: #e9f1f8;
   text-align: left;
   border: normal 2px solid;
   border-radius: 10px;
@@ -84,16 +84,35 @@ header div {
   font: normal 16px Arial;
   width: 100%;
 }
+
+.trav-label {
+  padding: 7px 0;
+}
+
+.frm-txt {
+  padding: 3px 5px;
+  background-color: #fe5d65;
+  color: white;
+  border-radius: 3px;
+}
+
+.to-txt {
+  padding: 3px 16px;
+  background-color: #fe5d65;
+  color: white;
+  border-radius: 3px;
+}
+
 #favourites {
   display: none;
   position: absolute;
   z-index: 1;
   top: 470px;
   left: 10px;
-  width: 200px;
+  width: 201px;
   max-height: calc(100% - 190px);
   padding: 5px;
-  background-color: white;
+  background-color: #e9f1f8;
   text-align: left;
   overflow: scroll;
   border: normal 2px solid;
@@ -109,7 +128,7 @@ header div {
   width: 500px;
   height: calc(100% - 30px);
   padding: 5px;
-  background-color: white;
+  background-color: #e9f1f8;
   text-align: left;
   overflow: scroll;
   border: normal 2px solid;

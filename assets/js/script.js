@@ -79,7 +79,6 @@ function areaStyle(feature) {
     fillOpacity: 0.3,
     weight: 1,
     opacity: 1,
-    color: "#ff0000",
   };
 }
 
