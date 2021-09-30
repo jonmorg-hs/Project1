@@ -123,7 +123,7 @@ function getFavourites() {
     $("#favourites").append(
       "<div class='favs'>" +
         favourites[i] +
-        "<img src='assets/images/bin.png' class='bin' /></div>"
+        "<i class='bin fa fa-trash'></i></div>"
     );
   }
 }
@@ -173,4 +173,8 @@ $("#remove_ok").on("click", function () {
 
 $("#remove_cancel").on("click", function () {
   $("#remove").hide();
+});
+
+$("#navHide").on("click", function () {
+  $("#links").toggle();
 });
