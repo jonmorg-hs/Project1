@@ -178,3 +178,19 @@ $("#remove_cancel").on("click", function () {
 $("#navHide").on("click", function () {
   $("#links").toggle();
 });
+
+$("#showHeader").on("click", function () {
+  $("header").show();
+  $("#map").css({ top: "0", height: "calc(100% - 302px)" });
+  $("#result").css({ top: "310px", height: "calc(100% - 332px)" });
+  $("#favourites").css({ top: "540px", maxHeight: "calc(100% - 192px)" });
+  $("#search").css({ top: "310px" });
+});
+
+$("#hideHeader").on("click", function () {
+  $("header").hide();
+  $("#map").css({ top: "52px", height: "calc(100% - 52px)" });
+  $("#result").css({ top: "62px", height: "calc(100% - 82px)" });
+  $("#favourites").css({ top: "292px", maxHeight: "calc(100% - 242px)" });
+  $("#search").css({ top: "62px" });
+});
