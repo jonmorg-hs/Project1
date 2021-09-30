@@ -31,19 +31,15 @@ $.getJSON(
   }
 );
 
-function getApi() {
-  fetch("https://covid19-api.com/country/all?format=json")
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      console.log(data);
-      covidData = data;
-      console.log(covidData);
-    });
-}
+fetch("https://covid19-api.com/country/all?format=json")
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (data) {
+    covidData = data;
+    console.log(covidData);
+  });
 
-getApi();
 function onEachFeature(feature, layer) {
   geojson.push(feature);
   $("#country_from").append(
@@ -86,6 +82,7 @@ function onClick(e) {
     );
     $("#confirm").show();
   }
+  getCountryResult();
 }
 
 function areaStyle(feature) {
@@ -103,7 +100,7 @@ $("#country_to").on("change", function () {
     .empty()
     .append("<h2>" + destination + "</h2>")
     .show();
-
+  getCountryResult();
   for (var j = 0; j < geojson.length; j++) {
     if (geojson[j]["properties"]["name"] === destination) {
       var coords = geojson[j]["geometry"]["coordinates"][0];
@@ -210,3 +207,11 @@ $("#hideHeader").on("click", function () {
   $("#favourites").css({ top: "292px", maxHeight: "calc(100% - 242px)" });
   $("#search").css({ top: "62px" });
 });
+
+function getCountryResult() {
+  for (let i = 0; i < covidData.length; i++) {
+    if (covidData[i].country === destination) {
+      console.log(covidData[i].deaths);
+    }
+  }
+}
