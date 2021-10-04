@@ -82,11 +82,7 @@ function areaStyle(feature) {
 
 $("#country_to").on("change", function () {
   destination = $(this).val();
-  $("#result")
-    .empty()
-    .append("<h2>" + destination + "</h2>")
-    .show();
-  getCountryResult();
+  getCountryData(destination);
   for (var j = 0; j < geojson.length; j++) {
     if (geojson[j]["properties"]["name"] === destination) {
       var coords = geojson[j]["geometry"]["coordinates"][0];
