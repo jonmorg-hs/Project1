@@ -166,10 +166,6 @@ $("#remove_cancel").on("click", function () {
   $("#remove").hide();
 });
 
-$("#navHide").on("click", function () {
-  $("#links").toggle();
-});
-
 $("#showHeader").on("click", function () {
   $("header").show();
   $("#map").css({ top: "0", height: "calc(100% - 302px)" });
