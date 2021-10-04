@@ -233,3 +233,39 @@ h2 {
   padding: 10px;
   margin: 9px 8px;
 } */
+
+@media screen and (max-width: 992px) {
+  .navbar a {
+    float: none;
+    text-align: center;
+  }
+  #links a {
+    padding: 15px 14px;
+  }
+  #logo {
+    font-size: 22px;
+    float: none;
+    text-align: center;
+  }
+  header {
+    position: relative;
+    min-height: 220px;
+  }
+  header div {
+    display: none;
+  }
+  #search {
+    top: 230px;
+  }
+  #favourites {
+    top: 460px;
+    max-height: calc(100% - 460px);
+  }
+  #result {
+    top: 230px;
+  }
+  /* 
+  #map {
+    height: calc(100% - 222px);
+  } */
+}
