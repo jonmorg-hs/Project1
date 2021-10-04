@@ -31,15 +31,6 @@ $.getJSON(
   }
 );
 
-fetch("https://covid19-api.com/country/all?format=json")
-  .then(function (response) {
-    return response.json();
-  })
-  .then(function (data) {
-    covidData = data;
-    console.log(covidData);
-  });
-
 function onEachFeature(feature, layer) {
   geojson.push(feature);
   $("#country_from").append(
