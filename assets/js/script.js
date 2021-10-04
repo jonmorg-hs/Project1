@@ -21,7 +21,7 @@ var baselayer = L.tileLayer(
 ).addTo(map);
 
 $.getJSON(
-  "https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_50m_admin_0_countries.geojson",
+  "https://www.haulsmart.com/apis/getGeoJson.php?country=",
   function (data) {
     L.geoJson(data, {
       style: areaStyle,
@@ -61,6 +61,7 @@ function onClick(e) {
   }
   map.fitBounds(bounds);
   $("#country_to").val(destination);
+
   //RUN COVID API AND DISPLAY RESPONSE
   getCountryData(destination);
   if (!favourites.includes(destination)) {
@@ -73,7 +74,7 @@ function onClick(e) {
 
 function areaStyle(feature) {
   return {
-    fillColor: "#0000ff",
+    fillColor: feature.properties.fillColor,
     fillOpacity: 0.3,
     weight: 1,
     opacity: 1,
@@ -152,14 +153,14 @@ $("#remove_ok").on("click", function () {
   $("#remove").hide();
   var favdata = [];
   for (var i = 0; i < favourites.length; i++) {
-    if (favourites[i] == destination) {
+    if (favourites[i] === destination) {
     } else {
       favdata.push(favourites[i]);
     }
   }
   favourites = favdata;
   localStorage.setItem("favourites", JSON.stringify(favourites));
-  getFavourites();
+  //getFavourites();
 });
 
 $("#remove_cancel").on("click", function () {
@@ -188,7 +189,12 @@ function getCountryData(destination) {
     "https://www.haulsmart.com/apis/coviddata.php?country=" + destination;
   fetch(requestUrl)
     .then(function (response) {
+      // console.log(response);
+      // console.log(response.json());
       return response.json();
+    })
+    .catch(function (error) {
+      console.log(error);
     })
     .then(function (data) {
       console.log(data);
@@ -196,9 +202,9 @@ function getCountryData(destination) {
         .empty()
         .append("<h2>" + destination + "</h2>")
         .append(
-          '<img src="https://www.countryflags.io/' +
+          "<img src='https://www.countryflags.io/" +
             data.countrycode +
-            '/flat/64.png">'
+            "/flat/64.png'>"
         )
         .append("<div class = 'result-body'>" + data.info + "</div>")
         .append(
