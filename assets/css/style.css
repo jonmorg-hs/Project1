@@ -259,9 +259,13 @@ h2 {
   }
   #favourites {
     top: 460px;
-    max-height: calc(100% - 222px);
+    max-height: calc(100% - 460px);
   }
   #result {
     top: 230px;
   }
+  /* 
+  #map {
+    height: calc(100% - 222px);
+  } */
 }
