@@ -131,7 +131,6 @@ $("#save").on("click", function () {
   $("#confirm").hide();
   getFavourites();
 });
-
 $("#cancel").on("click", function () {
   $("#confirm").hide();
 });
@@ -160,7 +159,7 @@ $("#remove_ok").on("click", function () {
   }
   favourites = favdata;
   localStorage.setItem("favourites", JSON.stringify(favourites));
-  //getFavourites();
+  getFavourites();
 });
 
 $("#remove_cancel").on("click", function () {
@@ -169,18 +168,21 @@ $("#remove_cancel").on("click", function () {
 
 $("#showHeader").on("click", function () {
   $("header").show();
-  $("#map").css({ top: "0", height: "calc(100% - 302px)" });
-  $("#result").css({ top: "310px", height: "calc(100% - 332px)" });
-  $("#favourites").css({ top: "540px", maxHeight: "calc(100% - 192px)" });
-  $("#search").css({ top: "310px" });
+  $("#map").css({ top: "0", height: "calc(80% - 2px)" });
+  $("#result").css({ top: "21%", height: "77%" });
+  $("#favourites").css({
+    top: "calc(21% + 230px)",
+    maxHeight: "calc(79% - 230px)",
+  });
+  $("#search").css({ top: "21%" });
 });
 
 $("#hideHeader").on("click", function () {
   $("header").hide();
-  $("#map").css({ top: "52px", height: "calc(100% - 52px)" });
-  $("#result").css({ top: "62px", height: "calc(100% - 82px)" });
-  $("#favourites").css({ top: "292px", maxHeight: "calc(100% - 242px)" });
-  $("#search").css({ top: "62px" });
+  $("#map").css({ top: "51px", height: "calc(100% - 51px)" });
+  $("#result").css({ top: "61px", height: "calc(100% - 81px)" });
+  $("#favourites").css({ top: "291px", maxHeight: "calc(100% - 241px)" });
+  $("#search").css({ top: "61px" });
 });
 
 // Get API and display in the result container
