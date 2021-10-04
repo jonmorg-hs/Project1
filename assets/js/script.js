@@ -186,14 +186,25 @@ $("#hideHeader").on("click", function () {
   $("#search").css({ top: "62px" });
 });
 
-//function for later pan to country.
-function getCountryResult() {
-  for (let i = 0; i < covidData.length; i++) {
-    if (covidData[i].country === destination) {
-      console.log(covidData[i].deaths);
-      console.log(covidData[i].latitude);
-      console.log(covidData[i].longitude);
-      //map.panTo(covidData[i].latitude, covidData[i].longitude);
-    }
-  }
+// Get API and display in the result container
+function getCountryData(destination) {
+  var requestUrl =
+    "https://www.haulsmart.com/apis/coviddata.php?country=" + destination;
+  fetch(requestUrl)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data);
+      $("#result")
+        .empty()
+        .append("<h2>" + destination + "</h2>")
+        .append("<div class = 'result-body'>" + data.info + "</div>")
+        .append(
+          "<div class = 'result-quartne-sec'>" + data.optional2 + "</div>"
+        )
+        .append("<div class = 'result-cEntry'>" + data.optional3 + "</div>")
+        .append("<div>" + data.sources + "</div>")
+        .show();
+    });
 }
