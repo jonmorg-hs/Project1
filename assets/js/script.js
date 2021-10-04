@@ -195,6 +195,11 @@ function getCountryData(destination) {
       $("#result")
         .empty()
         .append("<h2>" + destination + "</h2>")
+        .append(
+          '<img src="https://www.countryflags.io/' +
+            data.countrycode +
+            '/flat/64.png">'
+        )
         .append("<div class = 'result-body'>" + data.info + "</div>")
         .append(
           "<div class = 'result-quartne-sec'>" + data.optional2 + "</div>"
