@@ -188,10 +188,6 @@ $("#remove_cancel").on("click", function () {
   $("#remove").hide();
 });
 
-$("#navHide").on("click", function () {
-  $("#links").toggle();
-});
-
 $("#showHeader").on("click", function () {
   $("header").show();
   $("#map").css({ top: "0", height: "calc(100% - 302px)" });
@@ -215,7 +211,17 @@ function getCountryResult() {
       console.log(covidData[i].deaths);
       console.log(covidData[i].latitude);
       console.log(covidData[i].longitude);
-      //map.panTo(covidData[i].latitude, covidData[i].longitude);
+      L.marker([covidData[i].latitude, covidData[i].longitude])
+        .addTo(map)
+        .bindPopup(
+          "<div class='popup'>" +
+            covidData[i].country +
+            ": " +
+            covidData[i].deaths +
+            "</div>"
+        )
+        .openPopup();
+      map.panTo([covidData[i].latitude, covidData[i].longitude]);
     }
   }
 }

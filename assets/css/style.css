@@ -49,12 +49,11 @@ header div {
 #links a {
   padding: 15px 14px;
 }
-.navbar #links {
-  display: none;
-}
-.navbar a.icon {
+.navbar #compName {
+  padding: 15px 14px;
+  font-size: 18px;
+  color: aqua;
   float: right;
-  padding: 8px 10px;
 }
 
 .navbar a:hover {
@@ -182,4 +181,8 @@ header div {
   margin-right: 5px;
   cursor: pointer;
   height: 16px;
+}
+.popup {
+  color: white;
+  background-color: black;
 }
