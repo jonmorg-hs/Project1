@@ -62,18 +62,13 @@ function onClick(e) {
   map.fitBounds(bounds);
   $("#country_to").val(destination);
   //RUN COVID API AND DISPLAY RESPONSE
-
-  $("#result")
-    .empty()
-    .append("<h2>" + destination + "</h2>")
-    .show();
+  getCountryData(destination);
   if (!favourites.includes(destination)) {
     $("#confirm_text").html(
       "Do you wish to add " + destination + " to your favourites"
     );
     $("#confirm").show();
   }
-  getCountryResult();
 }
 
 function areaStyle(feature) {
