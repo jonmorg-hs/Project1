@@ -49,9 +49,6 @@ header div {
 #links a {
   padding: 15px 14px;
 }
-.navbar #links {
-  display: none;
-}
 .navbar a.icon {
   float: right;
   padding: 8px 10px;
