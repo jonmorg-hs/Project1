@@ -136,12 +136,8 @@ $("#cancel").on("click", function () {
 });
 
 $(".favs").on("click", function () {
-  //ADD get COVID API and response
-  $("#result")
-    .empty()
-    .append("<h2>" + $(this).text() + "</h2>")
-
-    .show();
+  destination = $(this).text();
+  getCountryData(destination);
 });
 
 $(".bin").on("click", function () {
