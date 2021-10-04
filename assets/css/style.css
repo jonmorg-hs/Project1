@@ -49,6 +49,12 @@ header div {
 #links a {
   padding: 15px 14px;
 }
+#logo {
+  float: right;
+  color: aqua;
+  font-size: 18px;
+  padding: 15px 14px;
+}
 .navbar a.icon {
   float: right;
   padding: 8px 10px;
