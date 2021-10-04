@@ -83,7 +83,8 @@ header div {
 }
 #search label {
   font: normal 16px Arial;
-  color: rgb(0, 102, 255);
+  /* color: rgb(0, 102, 255); */
+  color: #05458a;
 }
 #search select {
   font: normal 16px Arial;
@@ -133,7 +134,8 @@ header div {
   width: 500px;
   height: calc(100% - 332px);
   padding: 5px;
-  background-color: #e9f1f8;
+  /* background-color: #e9f1f8; */
+  background-color: white;
   text-align: left;
   overflow: scroll;
   border: normal 2px solid;
@@ -158,7 +160,7 @@ header div {
   width: 250px;
   height: 90px;
   padding: 5px;
-  background-color: white;
+  background-color: #e9f1f8;
   text-align: center;
   border: normal 2px solid;
   border-radius: 10px;
@@ -173,6 +175,7 @@ header div {
   border: none;
   border-radius: 3px;
   background-color: #66b2ff;
+  /* background-color: #0a4a99; */
   color: white;
   font: normal 18px arial;
   width: 100%;
@@ -183,3 +186,47 @@ header div {
   cursor: pointer;
   height: 16px;
 }
+
+/* Result Section */
+.result-body {
+  /* background-color: #7bd3ca; */
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  background-color: #e9f1f8;
+  /* background-color: #eef2f6; */
+  border-radius: 10px;
+  padding: 10px;
+  margin: 4px 8px;
+}
+
+h2 {
+  margin-left: 12px;
+  color: #041f41;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+}
+
+.result-quartne-sec {
+  background-color: #fe9b71;
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 9px 8px;
+}
+
+.result-cEntry {
+  background-color: #94dbd4;
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 9px 8px 12px;
+}
+
+/* .result-refLink {
+  background-color: #94dbd4;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 9px 8px;
+} */

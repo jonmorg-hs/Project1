@@ -31,15 +31,6 @@ $.getJSON(
   }
 );
 
-fetch("https://covid19-api.com/country/all?format=json")
-  .then(function (response) {
-    return response.json();
-  })
-  .then(function (data) {
-    covidData = data;
-    console.log(covidData);
-  });
-
 function onEachFeature(feature, layer) {
   geojson.push(feature);
   $("#country_from").append(
@@ -71,18 +62,13 @@ function onClick(e) {
   map.fitBounds(bounds);
   $("#country_to").val(destination);
   //RUN COVID API AND DISPLAY RESPONSE
-
-  $("#result")
-    .empty()
-    .append("<h2>" + destination + "</h2>")
-    .show();
+  getCountryData(destination);
   if (!favourites.includes(destination)) {
     $("#confirm_text").html(
       "Do you wish to add " + destination + " to your favourites"
     );
     $("#confirm").show();
   }
-  getCountryResult();
 }
 
 function areaStyle(feature) {
@@ -96,11 +82,7 @@ function areaStyle(feature) {
 
 $("#country_to").on("change", function () {
   destination = $(this).val();
-  $("#result")
-    .empty()
-    .append("<h2>" + destination + "</h2>")
-    .show();
-  getCountryResult();
+  getCountryData(destination);
   for (var j = 0; j < geojson.length; j++) {
     if (geojson[j]["properties"]["name"] === destination) {
       var coords = geojson[j]["geometry"]["coordinates"][0];
@@ -154,12 +136,8 @@ $("#cancel").on("click", function () {
 });
 
 $(".favs").on("click", function () {
-  //ADD get COVID API and response
-  $("#result")
-    .empty()
-    .append("<h2>" + $(this).text() + "</h2>")
-
-    .show();
+  destination = $(this).text();
+  getCountryData(destination);
 });
 
 $(".bin").on("click", function () {
@@ -208,14 +186,25 @@ $("#hideHeader").on("click", function () {
   $("#search").css({ top: "62px" });
 });
 
-//function for later pan to country.
-function getCountryResult() {
-  for (let i = 0; i < covidData.length; i++) {
-    if (covidData[i].country === destination) {
-      console.log(covidData[i].deaths);
-      console.log(covidData[i].latitude);
-      console.log(covidData[i].longitude);
-      //map.panTo(covidData[i].latitude, covidData[i].longitude);
-    }
-  }
+// Get API and display in the result container
+function getCountryData(destination) {
+  var requestUrl =
+    "https://www.haulsmart.com/apis/coviddata.php?country=" + destination;
+  fetch(requestUrl)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data);
+      $("#result")
+        .empty()
+        .append("<h2>" + destination + "</h2>")
+        .append("<div class = 'result-body'>" + data.info + "</div>")
+        .append(
+          "<div class = 'result-quartne-sec'>" + data.optional2 + "</div>"
+        )
+        .append("<div class = 'result-cEntry'>" + data.optional3 + "</div>")
+        .append("<div>" + data.sources + "</div>")
+        .show();
+    });
 }
