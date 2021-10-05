@@ -15,7 +15,7 @@ body {
 
 header {
   position: relative;
-  min-height: 300px;
+  min-height: 20%;
   background-image: url("./../images/beachBackground.jpg");
   border-bottom: 2px solid #333;
   background-position: center;
@@ -67,13 +67,13 @@ header div {
 
 #map {
   width: 100%;
-  height: calc(100% - 302px);
+  height: calc(80% - 2px);
   z-index: 0;
 }
 #search {
   position: absolute;
   z-index: 1;
-  top: 310px;
+  top: 21%;
   left: 10px;
   width: 200px;
   height: 140px;
@@ -116,10 +116,10 @@ header div {
   display: none;
   position: absolute;
   z-index: 1;
-  top: 540px;
+  top: calc(21% + 230px);
   left: 10px;
   width: 201px;
-  max-height: calc(100% - 192px);
+  max-height: 100%;
   padding: 10px 30px;
   background-color: #e9f1f8;
   text-align: left;
@@ -132,10 +132,10 @@ header div {
   display: none;
   position: absolute;
   z-index: 1;
-  top: 310px;
+  top: 21%;
   right: 10px;
   width: 500px;
-  height: calc(100% - 332px);
+  height: 77%;
   padding: 5px;
   /* background-color: #e9f1f8; */
   background-color: white;
@@ -247,25 +247,7 @@ h2 {
     float: none;
     text-align: center;
   }
-  header {
-    position: relative;
-    min-height: 220px;
-  }
   header div {
     display: none;
   }
-  #search {
-    top: 230px;
-  }
-  #favourites {
-    top: 460px;
-    max-height: calc(100% - 460px);
-  }
-  #result {
-    top: 230px;
-  }
-  /* 
-  #map {
-    height: calc(100% - 222px);
-  } */
 }
