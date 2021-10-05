@@ -35,11 +35,11 @@ if (localStorage.getItem("favourites") === null) {
     { iso: "IND", country: "India" },
   ];
 } else {
-  favourites = [
-    { iso: "CHN", country: "China" },
-    { iso: "IND", country: "India" },
-  ];
-  //favourites = JSON.parse(localStorage.getItem("favourites"));
+  //favourites = [
+  //  { iso: "CHN", country: "China" },
+  //  { iso: "IND", country: "India" },
+  //];
+  favourites = JSON.parse(localStorage.getItem("favourites"));
 }
 
 var map = L.map("map", { minZoom: 3, maxZoom: 6 }).setView([51.505, -0.09], 3);
@@ -237,6 +237,7 @@ function getCountryData(destination) {
           .append("<div class='result-cEntry' >" + opt3 + "</div>")
           .append("<div>" + data.sources + "</div>")
           .show();
+
         $("#closeButton").on("click", function () {
           $("#result").hide();
         });
