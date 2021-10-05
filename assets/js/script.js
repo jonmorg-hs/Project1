@@ -3,9 +3,11 @@ var geojson = [];
 var favourites = [];
 var covidData;
 if (localStorage.getItem("favourites") === null) {
-  favourites = ["New Zealand", "Canada"];
+  favourites = [{"iso":"CHN","country":"China"},{"iso":"IND","country":"India"}];
+  
 } else {
-  favourites = JSON.parse(localStorage.getItem("favourites"));
+  //favourites = [{"iso":"CHN","country":"China"},{"iso":"IND","country":"India"}];
+   favourites = JSON.parse(localStorage.getItem("favourites"));
 }
 
 var map = L.map("map").setView([51.505, -0.09], 3);
@@ -71,7 +73,10 @@ function areaStyle(feature) {
     opacity: 1,
   };
 }
-
+$("#country_from").on("change", function () {
+  destination = $("#country_to").val();
+  getCountryData(destination);
+});
 $("#country_to").on("change", function () {
   destination = $(this).val();
   getCountryData(destination);
@@ -88,8 +93,8 @@ function getFavourites() {
   $("#favourites").empty();
   for (var i = 0; i < favourites.length; i++) {
     $("#favourites").append(
-      "<div class='favs'>" +
-        favourites[i] +
+      "<div class='favs' iso='"+favourites[i].iso+"'>" +       
+       favourites[i].country +
         "<i class='bin fa fa-trash'></i></div>"
     );
   }
@@ -99,7 +104,7 @@ getFavourites();
 
 
 $(".favs").on("click", function () {
-  destination = $(this).text();
+  destination = $(this).attr('iso');
   getCountryData(destination);
 });
 
@@ -173,7 +178,7 @@ function getCountryData(destination) {
         .append(
           "<img src='https://www.countryflags.io/" + dest + "/flat/64.png'>"
         )
-        .append("<img id='favoritButton' style='margin-left:100px' src='assets/images/addfav.png'>")
+        .append("<img id='addfav' style='margin-left:100px' src='assets/images/addfav.png'>")
         .append("<img id='closeButton' style='margin-left:150px' src='assets/images/close.png'>")
       console.log(data.info);
       if (!data.info) {
@@ -182,39 +187,48 @@ function getCountryData(destination) {
         );
       } else {
         $("#result")
-        
-        
-          .append("<div class = 'result-body'>" + data.info + "</div>")
+        var info = data.info.replaceAll(
+          origin,
+          "<span class = 'highlight'>" + origin + "</span>"
+        );
+        var opt2 = data.optional2.replaceAll(
+          origin,
+          "<span class = 'highlight'>" + origin + "</span>"
+        );
+        var opt3 = data.optional3.replaceAll(
+          origin,
+          "<span class = 'highlight'>" + origin + "</span>"
+        );
+        $("#result")
+          .empty()
           .append(
-            "<div class = 'result-quartne-sec'>" + data.optional2 + "</div>"
+            "<div style='position:relative'><h2>" +
+              $("#country_to :selected").text() +
+              "</h2><img id='addfav' style='width:30px;cursor:pointer;position:absolute;right:50px' src='assets/images/addfav.png' /><img id='closeresult' style='margin-left:20px;width:30px;cursor:pointer;position:absolute;right:0px'  onclick-\"$('#result').hide()\" src='assets/images/close.png' /></div>"
           )
-          .append("<div class = 'result-cEntry'>" + data.optional3 + "</div>")
+          .append("<div class = 'result-body' >" + info + "</div>")
+          .append("<div class = 'result-quartne-sec' >" + opt2 + "</div>")
+          .append("<div class='result-cEntry' >" + opt3 + "</div>")
           .append("<div>" + data.sources + "</div>")
           .show();
-         .append("<h2>" + destination + "</h2>")
-         .append(
-           "<img class = 'country-flag' src='https://www.countryflags.io/" +
-             data.countrycode +
-             "/flat/64.png'>"
-         )        
         $("#closeButton").on("click",function(){
           $("#result").hide()
-        }); (!favourites.includes(destination)) {
-        $("#favoritButton").show()
+        });
+        for (var i=0;i<favourites.length;i++) {
+        if (favourites[i].iso===$("#country_to").val()){ $("#addfav").show()
        
-         }else{$("#favoritButton").hide()}
+         }else{$("#addfav").hide()}}
       $("#addfav").on("click", function () { 
-        favourites.push(destination);
+        var obj={};
+        obj.iso=$("#country_to").val();
+        obj.country=$("#country_to :selected").text();
+        favourites.push(obj);
         localStorage.setItem("favourites", JSON.stringify(favourites));
         getFavourites();
       });
-    });
-}
-    });
     }
-      }
     });
-}
+  }
 
 function getCountryBounds(destination) {
   console.log("hello");
