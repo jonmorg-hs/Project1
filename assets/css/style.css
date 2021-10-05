@@ -234,6 +234,14 @@ h2 {
   margin: 9px 8px 12px;
 }
 
+#legend {
+  position: absolute;
+  z-index: 10;
+  bottom: 2px;
+  left: 50%;
+  margin-left: -100px;
+}
+
 /* .result-refLink {
   background-color: #94dbd4;
   border-radius: 10px;
