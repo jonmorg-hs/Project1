@@ -206,9 +206,9 @@ function getCountryData(destination) {
               $("#country_to :selected").text() +
               "</h2><img id='addfav' style='width:30px;cursor:pointer;position:absolute;right:50px' src='assets/images/addfav.png' /><img id='closeresult' style='margin-left:20px;width:30px;cursor:pointer;position:absolute;right:0px'  onclick-\"$('#result').hide()\" src='assets/images/close.png' /></div>"
           )
-          .append("<div >" + info + "</div>")
-          .append("<div >" + opt2 + "</div>")
-          .append("<div >" + opt3 + "</div>")
+          .append("<div class = 'result-body' >" + info + "</div>")
+          .append("<div class = 'result-quartne-sec' >" + opt2 + "</div>")
+          .append("<div class='result-cEntry' >" + opt3 + "</div>")
           .append("<div>" + data.sources + "</div>")
           .show();
         $("#closeButton").on("click",function(){
