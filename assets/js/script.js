@@ -23,7 +23,7 @@ for (var i = 0; i < colorarray.length; i++) {
   legendhtml +=
     "<input type='text' disabled style='border:none;background-color:" +
     colorarray[i] +
-    ";width:30px;color:white;font:normal 14px Arial;text-align:center' value='" +
+    ";width:30px;color:blue;font:bold 14px Arial;text-align:center' value='" +
     k +
     "'/>";
 }
@@ -293,24 +293,25 @@ function getCountryBounds(destination) {
       var popupdata = geojson.features[j].properties.cdata;
     }
   }
-  var html = "";
+  var html = "<div style='height:200px;overflow:scroll'>";
   for (const [key, value] of Object.entries(popupdata)) {
     html +=
-      "<label style='font:normal 16px Arial'>" +
+      "<label style='font:normal 12px Arial'>" +
       key +
       " : " +
       value +
       "</label><br/>";
   }
+  html += "</div>";
   var marker = L.marker(bounds.getCenter(), { icon: needleIcon })
     .addTo(map)
 
     .bindPopup(
       "<div><h2>" +
         $("#country_to :selected").text() +
-        "</h2><br/><label style='font:bold 16px Arial;cursor:pointer' onclick=\"getCountryData('" +
+        "</h2><br/><label style='font:bold 12px Arial;cursor:pointer' onclick=\"getCountryData('" +
         destination +
-        "')\" >Travel Restrictions</label><br/>" +
+        "')\" >Travel Restrictions</label><br/><br/>" +
         html
     )
     .openPopup();
@@ -319,7 +320,7 @@ function getCountryBounds(destination) {
 
 var needleIcon = L.icon({
   iconUrl: "assets/images/needle.png",
-  iconSize: [200, 200], // size of the icon
-  iconAnchor: [100, 200], // point of the icon which will correspond to marker's location
-  popupAnchor: [0, -200], // point from which the popup should open relative to the iconAnchor
+  iconSize: [50, 50], // size of the icon
+  iconAnchor: [25, 50], // point of the icon which will correspond to marker's location
+  popupAnchor: [0, -50], // point from which the popup should open relative to the iconAnchor
 });
