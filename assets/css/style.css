@@ -235,11 +235,14 @@ h2 {
 }
 
 #legend {
+  border-radius: 2px;
+  padding: 2px;
   position: absolute;
   z-index: 10;
   bottom: 2px;
   left: 50%;
   margin-left: -100px;
+  box-shadow: 5px 5px 5px 5px gray;
 }
 
 /* .result-refLink {
