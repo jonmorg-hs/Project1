@@ -64,12 +64,7 @@ function onClick(e) {
 
   //RUN COVID API AND DISPLAY RESPONSE
   getCountryData(destination);
-  if (!favourites.includes(destination)) {
-    $("#confirm_text").html(
-      "Do you wish to add " + destination + " to your favourites"
-    );
-    $("#confirm").show();
-  }
+ 
 }
 
 function areaStyle(feature) {
@@ -100,12 +95,7 @@ $("#country_to").on("change", function () {
     }
   }
   //map.fitBounds(bounds);
-  if (!favourites.includes(destination)) {
-    $("#confirm_text").html(
-      "Do you wish to add " + destination + " to your favourites"
-    );
-    $("#confirm").show();
-  }
+  
 });
 
 $("#fav").on("click", function () {
@@ -125,15 +115,8 @@ function getFavourites() {
 
 getFavourites();
 
-$("#save").on("click", function () {
-  favourites.push(destination);
-  localStorage.setItem("favourites", JSON.stringify(favourites));
-  $("#confirm").hide();
-  getFavourites();
-});
-$("#cancel").on("click", function () {
-  $("#confirm").hide();
-});
+
+
 
 $(".favs").on("click", function () {
   destination = $(this).text();
@@ -203,24 +186,37 @@ function getCountryData(destination) {
       $("#result")
         .empty()
         .append("<h2>" + destination + "</h2>")
-         .append(
-           "<img class = 'country-flag' src='https://www.countryflags.io/" +
-             data.countrycode +
-             "/flat/64.png'>"
-         )
+        .append(
+          "<img class = 'country-flag' src='https://www.countryflags.io/" +
+            data.countrycode +
+            "/flat/64.png'>"
+        )
 
         // (WIP) - once closed button doesnt currently allow re-searching same country
-        .append("<img id='favoritButton' style='margin-left:100px' src='assets/images/addfav.png'>")
-        .append("<img id='closeButton' style='margin-left:150px' src='assets/images/close.png'>")
+        .append(
+          "<img id='favoritButton' style='margin-left:100px' src='assets/images/addfav.png'>"
+        )
+        .append(
+          "<img id='closeButton' style='margin-left:150px' src='assets/images/close.png'>"
+        )
         .append("<div class = 'result-body'>" + data.info + "</div>")
         .append(
           "<div class = 'result-quartne-sec'>" + data.optional2 + "</div>"
         )
         .append("<div class = 'result-cEntry'>" + data.optional3 + "</div>")
         .append("<div>" + data.sources + "</div>")
-        .show()
-        $("#closeButton").on("click",function(){
-          $("#result").hide()
-        });
+        .show();
+      $("#closeButton").on("click", function () {
+        $("#result").hide();
+      });
+      if (!favourites.includes(destination)) {
+        $("#favoritButton").show()
+       
+         }else{$("#favoritButton").hide()}
+      $("#addfav").on("click", function () { 
+        favourites.push(destination);
+        localStorage.setItem("favourites", JSON.stringify(favourites));
+        getFavourites();
+      });
     });
-    }
+}
