@@ -204,7 +204,7 @@ function getCountryData(destination) {
         .empty()
         .append("<h2>" + destination + "</h2>")
         .append(
-          "<img src='https://www.countryflags.io/" +
+          "<img class = 'country-flag' src='https://www.countryflags.io/" +
             data.countrycode +
             "/flat/64.png'>"
         )
