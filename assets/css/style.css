@@ -206,7 +206,14 @@ h2 {
   margin-left: 12px;
   color: #041f41;
   font-family: "Poppins", sans-serif;
+  display: inline-flex;
   font-weight: 600;
+}
+
+.country-flag {
+  margin-top: 7px;
+  margin-left: 4px;
+  position: absolute;
 }
 
 .result-quartne-sec {

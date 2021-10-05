@@ -183,7 +183,9 @@ function getCountryData(destination) {
         .append("<h2>" + dest + "</h2>")
         .append(
           "<img src='https://www.countryflags.io/" + dest + "/flat/64.png'>"
-        );
+        )
+        .append("<img id='favoritButton' style='margin-left:100px' src='assets/images/addfav.png'>")
+        .append("<img id='closeButton' style='margin-left:150px' src='assets/images/close.png'>")
       console.log(data.info);
       if (!data.info) {
         $("#result").append(
@@ -191,6 +193,8 @@ function getCountryData(destination) {
         );
       } else {
         $("#result")
+        
+        
           .append("<div class = 'result-body'>" + data.info + "</div>")
           .append(
             "<div class = 'result-quartne-sec'>" + data.optional2 + "</div>"
@@ -198,6 +202,17 @@ function getCountryData(destination) {
           .append("<div class = 'result-cEntry'>" + data.optional3 + "</div>")
           .append("<div>" + data.sources + "</div>")
           .show();
+         .append("<h2>" + destination + "</h2>")
+         .append(
+           "<img class = 'country-flag' src='https://www.countryflags.io/" +
+             data.countrycode +
+             "/flat/64.png'>"
+         )        
+        $("#closeButton").on("click",function(){
+          $("#result").hide()
+        });
+    });
+    }
       }
     });
 }
