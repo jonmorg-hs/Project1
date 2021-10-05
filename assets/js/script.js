@@ -203,24 +203,24 @@ function getCountryData(destination) {
       $("#result")
         .empty()
         .append("<h2>" + destination + "</h2>")
-         .append(
-           "<img class = 'country-flag' src='https://www.countryflags.io/" +
-             data.countrycode +
-             "/flat/64.png'>"
-         )
+        .append(
+          "<img class = 'country-flag' src='https://www.countryflags.io/" +
+            data.countrycode +
+            "/flat/64.png'>"
+        )
 
         // (WIP) - once closed button doesnt currently allow re-searching same country
-        .append("<img id='favoritButton' style='margin-left:100px' src='assets/images/addfav.png'>")
-        .append("<img id='closeButton' style='margin-left:150px' src='assets/images/close.png'>")
+        .append("<img id='favoritButton' src='assets/images/addfav.png'>")
+        .append("<img id='closeButton' src='assets/images/close.png'>")
         .append("<div class = 'result-body'>" + data.info + "</div>")
         .append(
           "<div class = 'result-quartne-sec'>" + data.optional2 + "</div>"
         )
         .append("<div class = 'result-cEntry'>" + data.optional3 + "</div>")
         .append("<div>" + data.sources + "</div>")
-        .show()
-        $("#closeButton").on("click",function(){
-          $("#result").hide()
-        });
+        .show();
+      $("#closeButton").on("click", function () {
+        $("#result").hide();
+      });
     });
-    }
+}

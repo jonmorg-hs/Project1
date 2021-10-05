@@ -233,6 +233,17 @@ h2 {
   padding: 10px;
   margin: 9px 8px 12px;
 }
+/* Close & Fav Button */
+#favoritButton {
+  margin-left: 260px;
+  width: 30px;
+  height: 30px;
+}
+#closeButton {
+  margin-left: 8px;
+  width: 30px;
+  height: 30px;
+}
 
 /* .result-refLink {
   background-color: #94dbd4;
