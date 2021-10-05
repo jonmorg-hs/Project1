@@ -291,13 +291,14 @@ function getCountryBounds(destination) {
   for (var j = 0; j < geojson.features.length; j++) {
     if (geojson.features[j].properties.adm0_a3 == destination) {
       var popupdata = geojson.features[j].properties.cdata;
+      var iso_a2 = geojson.features[j].properties.iso_a2;
     }
   }
   var html = "<div style='height:200px;overflow:scroll'>";
   for (const [key, value] of Object.entries(popupdata)) {
     html +=
       "<label style='font:normal 12px Arial'>" +
-      key +
+      key.replaceAll("_", " ") +
       " : " +
       value +
       "</label><br/>";
@@ -307,7 +308,9 @@ function getCountryBounds(destination) {
     .addTo(map)
 
     .bindPopup(
-      "<div><h2>" +
+      "<div><img style='position:absolute;top:20px;right:10px;width:40px' src='https://www.countryflags.io/" +
+        iso_a2 +
+        "/flat/64.png'><h2>" +
         $("#country_to :selected").text() +
         "</h2><br/><label style='font:bold 12px Arial;cursor:pointer' onclick=\"getCountryData('" +
         destination +
