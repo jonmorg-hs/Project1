@@ -60,12 +60,7 @@ function onClick(e) {
   getCountryBounds(destination);
   //RUN COVID API AND DISPLAY RESPONSE
   getCountryData(destination);
-  if (!favourites.includes(destination)) {
-    $("#confirm_text").html(
-      "Do you wish to add " + destination + " to your favourites"
-    );
-    $("#confirm").show();
-  }
+ 
 }
 
 function areaStyle(feature) {
@@ -80,7 +75,9 @@ function areaStyle(feature) {
 $("#country_to").on("change", function () {
   destination = $(this).val();
   getCountryData(destination);
+
   getCountryBounds(destination);
+
 });
 
 $("#fav").on("click", function () {
@@ -100,16 +97,6 @@ function getFavourites() {
 
 getFavourites();
 
-$("#save").on("click", function () {
-  favourites.push(destination);
-  localStorage.setItem("favourites", JSON.stringify(favourites));
-  $("#confirm").hide();
-  getFavourites();
-});
-
-$("#cancel").on("click", function () {
-  $("#confirm").hide();
-});
 
 $(".favs").on("click", function () {
   destination = $(this).text();
@@ -180,6 +167,8 @@ function getCountryData(destination) {
       console.log(data);
       $("#result")
         .empty()
+
+      
         .append("<h2>" + dest + "</h2>")
         .append(
           "<img src='https://www.countryflags.io/" + dest + "/flat/64.png'>"
@@ -210,7 +199,17 @@ function getCountryData(destination) {
          )        
         $("#closeButton").on("click",function(){
           $("#result").hide()
-        });
+        }); (!favourites.includes(destination)) {
+        $("#favoritButton").show()
+       
+         }else{$("#favoritButton").hide()}
+      $("#addfav").on("click", function () { 
+        favourites.push(destination);
+        localStorage.setItem("favourites", JSON.stringify(favourites));
+        getFavourites();
+      });
+    });
+}
     });
     }
       }
@@ -264,3 +263,4 @@ var needleIcon = L.icon({
   iconAnchor: [100, 200], // point of the icon which will correspond to marker's location
   popupAnchor: [0, -200], // point from which the popup should open relative to the iconAnchor
 });
+
