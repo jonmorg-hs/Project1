@@ -4,6 +4,30 @@ var geojson = [];
 var favourites = [];
 var markers = [];
 var markersLayer = new L.LayerGroup();
+var colorarray = [
+  "#FFFFFF",
+  "#FFE5CC",
+  "#FFCC99",
+  "#FFB266",
+  "#FF6666",
+  "#FF3333",
+  "#FF0000",
+  "#CC0000",
+  "#990000",
+  "#660000",
+];
+
+var legendhtml = "";
+for (var i = 0; i < colorarray.length; i++) {
+  var k = i * 10 + 10;
+  legendhtml +=
+    "<input type='text' disabled style='border:none;background-color:" +
+    colorarray[i] +
+    ";width:30px;color:white;font:normal 14px Arial;text-align:center' value='" +
+    k +
+    "'/>";
+}
+$("#legend").html(legendhtml);
 var covidData;
 if (localStorage.getItem("favourites") === null) {
   favourites = [
@@ -73,7 +97,7 @@ function onClick(e) {
 function areaStyle(feature) {
   return {
     fillColor: feature.properties.fillColor,
-    fillOpacity: 0.3,
+    fillOpacity: 0.7,
     weight: 1,
     opacity: 1,
   };
@@ -264,15 +288,30 @@ function getCountryBounds(destination) {
   map.fitBounds(bounds);
   map.panTo(bounds.getCenter());
 
+  for (var j = 0; j < geojson.features.length; j++) {
+    if (geojson.features[j].properties.adm0_a3 == destination) {
+      var popupdata = geojson.features[j].properties.cdata;
+    }
+  }
+  var html = "";
+  for (const [key, value] of Object.entries(popupdata)) {
+    html +=
+      "<label style='font:normal 16px Arial'>" +
+      key +
+      " : " +
+      value +
+      "</label><br/>";
+  }
   var marker = L.marker(bounds.getCenter(), { icon: needleIcon })
     .addTo(map)
 
     .bindPopup(
       "<div><h2>" +
         $("#country_to :selected").text() +
-        "</h2><br><br/><label style='font:normal 16px Arial;cursor:pointer' onclick=\"getCountryData('" +
+        "</h2><br/><label style='font:bold 16px Arial;cursor:pointer' onclick=\"getCountryData('" +
         destination +
-        "')\" >Travel Restrictions</label>"
+        "')\" >Travel Restrictions</label><br/>" +
+        html
     )
     .openPopup();
   markersLayer.addLayer(marker);
