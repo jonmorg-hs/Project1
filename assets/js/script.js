@@ -1,18 +1,25 @@
+var origin;
 var destination;
 var geojson = [];
 var favourites = [];
+var markers = [];
+var markersLayer = new L.LayerGroup();
 var covidData;
 if (localStorage.getItem("favourites") === null) {
-  favourites = [{"iso":"CHN","country":"China"},{"iso":"IND","country":"India"}];
-  
+  favourites = [
+    { iso: "CHN", country: "China" },
+    { iso: "IND", country: "India" },
+  ];
 } else {
-  //favourites = [{"iso":"CHN","country":"China"},{"iso":"IND","country":"India"}];
-   favourites = JSON.parse(localStorage.getItem("favourites"));
+  favourites = [
+    { iso: "CHN", country: "China" },
+    { iso: "IND", country: "India" },
+  ];
+  //favourites = JSON.parse(localStorage.getItem("favourites"));
 }
 
-var map = L.map("map").setView([51.505, -0.09], 3);
+var map = L.map("map", { minZoom: 3, maxZoom: 6 }).setView([51.505, -0.09], 3);
 map.zoomControl.setPosition("bottomright");
-
 var baselayer = L.tileLayer(
   "https://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png",
   {
@@ -25,7 +32,6 @@ var baselayer = L.tileLayer(
 $.getJSON(
   "https://www.haulsmart.com/apis/getGeoJson.php?country=",
   function (data) {
-    console.log(data);
     geojson = data;
     L.geoJson(data, {
       style: areaStyle,
@@ -34,6 +40,8 @@ $.getJSON(
     $("#country_from").val("AUS");
   }
 );
+
+markersLayer.addTo(map);
 
 function onEachFeature(feature, layer) {
   $("#country_from").append(
@@ -56,13 +64,10 @@ function onEachFeature(feature, layer) {
 }
 
 function onClick(e) {
+  $("#result").hide();
   destination = e.target.feature.properties.adm0_a3;
-
   $("#country_to").val(destination);
   getCountryBounds(destination);
-  //RUN COVID API AND DISPLAY RESPONSE
-  getCountryData(destination);
- 
 }
 
 function areaStyle(feature) {
@@ -75,14 +80,12 @@ function areaStyle(feature) {
 }
 $("#country_from").on("change", function () {
   destination = $("#country_to").val();
-  getCountryData(destination);
 });
+
 $("#country_to").on("change", function () {
+  $("#result").hide();
   destination = $(this).val();
-  getCountryData(destination);
-
   getCountryBounds(destination);
-
 });
 
 $("#fav").on("click", function () {
@@ -93,8 +96,10 @@ function getFavourites() {
   $("#favourites").empty();
   for (var i = 0; i < favourites.length; i++) {
     $("#favourites").append(
-      "<div class='favs' iso='"+favourites[i].iso+"'>" +       
-       favourites[i].country +
+      "<div class='favs' iso='" +
+        favourites[i].iso +
+        "'>" +
+        favourites[i].country +
         "<i class='bin fa fa-trash'></i></div>"
     );
   }
@@ -102,10 +107,11 @@ function getFavourites() {
 
 getFavourites();
 
-
 $(".favs").on("click", function () {
-  destination = $(this).attr('iso');
-  getCountryData(destination);
+  $("#result").hide();
+  destination = $(this).attr("iso");
+  $("#country_to").val(destination);
+  getCountryBounds(destination);
 });
 
 $(".bin").on("click", function () {
@@ -155,7 +161,7 @@ $("#hideHeader").on("click", function () {
 
 // Get API and display in the result container
 function getCountryData(destination) {
-  var origin = $("#country_from :selected").text();
+  origin = $("#country_from :selected").text();
   var dest = $("#country_to :selected").text();
   var requestUrl =
     "https://www.haulsmart.com/apis/coviddata2.php?country=" + destination;
@@ -170,68 +176,68 @@ function getCountryData(destination) {
     })
     .then(function (data) {
       console.log(data);
+      var info = data.info.replaceAll(
+        origin,
+        "<span class = 'highlight'>" + origin + "</span>"
+      );
+      var opt2 = data.optional2.replaceAll(
+        origin,
+        "<span class = 'highlight'>" + origin + "</span>"
+      );
+      var opt3 = data.optional3.replaceAll(
+        origin,
+        "<span class = 'highlight'>" + origin + "</span>"
+      );
       $("#result")
         .empty()
-
-      
-        .append("<h2>" + dest + "</h2>")
+        .append("<div style='position:relative'><h2>" + dest + "</h2>")
         .append(
-          "<img src='https://www.countryflags.io/" + dest + "/flat/64.png'>"
+          "<img style='position:absolute;top:10px;right:150px' src='https://www.countryflags.io/" +
+            data.countrycode +
+            "/flat/64.png'>"
         )
-        .append("<img id='addfav' style='margin-left:100px' src='assets/images/addfav.png'>")
-        .append("<img id='closeButton' style='margin-left:150px' src='assets/images/close.png'>")
-      console.log(data.info);
+        .append(
+          "<img id='addfav' style='position:absolute;top:10px;right:50px;width:30px' src='assets/images/addfav.png'>"
+        )
+        .append(
+          "<img id='closeButton' style='position:absolute;top:10px;right:10px;width:30px' src='assets/images/close.png'></div>"
+        );
       if (!data.info) {
         $("#result").append(
           "<div class = 'result-body'> no information </div>"
         );
       } else {
         $("#result")
-        var info = data.info.replaceAll(
-          origin,
-          "<span class = 'highlight'>" + origin + "</span>"
-        );
-        var opt2 = data.optional2.replaceAll(
-          origin,
-          "<span class = 'highlight'>" + origin + "</span>"
-        );
-        var opt3 = data.optional3.replaceAll(
-          origin,
-          "<span class = 'highlight'>" + origin + "</span>"
-        );
-        $("#result")
-          .empty()
-          .append(
-            "<div style='position:relative'><h2>" +
-              $("#country_to :selected").text() +
-              "</h2><img id='addfav' style='width:30px;cursor:pointer;position:absolute;right:50px' src='assets/images/addfav.png' /><img id='closeresult' style='margin-left:20px;width:30px;cursor:pointer;position:absolute;right:0px'  onclick-\"$('#result').hide()\" src='assets/images/close.png' /></div>"
-          )
           .append("<div class = 'result-body' >" + info + "</div>")
           .append("<div class = 'result-quartne-sec' >" + opt2 + "</div>")
           .append("<div class='result-cEntry' >" + opt3 + "</div>")
           .append("<div>" + data.sources + "</div>")
           .show();
-        $("#closeButton").on("click",function(){
-          $("#result").hide()
+        $("#closeButton").on("click", function () {
+          $("#result").hide();
         });
-        for (var i=0;i<favourites.length;i++) {
-        if (favourites[i].iso===$("#country_to").val()){ $("#addfav").show()
-       
-         }else{$("#addfav").hide()}}
-      $("#addfav").on("click", function () { 
-        var obj={};
-        obj.iso=$("#country_to").val();
-        obj.country=$("#country_to :selected").text();
-        favourites.push(obj);
-        localStorage.setItem("favourites", JSON.stringify(favourites));
-        getFavourites();
-      });
-    }
+        console.log(favourites);
+        for (var i = 0; i < favourites.length; i++) {
+          if (favourites[i].iso === $("#country_to :selected").val()) {
+            $("#addfav").hide();
+          } else {
+            $("#addfav").show();
+          }
+        }
+        $("#addfav").on("click", function () {
+          var obj = {};
+          obj.iso = $("#country_to").val();
+          obj.country = $("#country_to :selected").text();
+          favourites.push(obj);
+          localStorage.setItem("favourites", JSON.stringify(favourites));
+          getFavourites();
+        });
+      }
     });
-  }
+}
 
 function getCountryBounds(destination) {
-  console.log("hello");
+  markersLayer.clearLayers();
   var bounds = L.latLngBounds();
   for (var j = 0; j < geojson.features.length; j++) {
     if (geojson.features[j].properties.adm0_a3 == destination) {
@@ -258,7 +264,7 @@ function getCountryBounds(destination) {
   map.fitBounds(bounds);
   map.panTo(bounds.getCenter());
 
-  L.marker(bounds.getCenter(), { icon: needleIcon })
+  var marker = L.marker(bounds.getCenter(), { icon: needleIcon })
     .addTo(map)
 
     .bindPopup(
@@ -269,6 +275,7 @@ function getCountryBounds(destination) {
         "')\" >Travel Restrictions</label>"
     )
     .openPopup();
+  markersLayer.addLayer(marker);
 }
 
 var needleIcon = L.icon({
@@ -277,4 +284,3 @@ var needleIcon = L.icon({
   iconAnchor: [100, 200], // point of the icon which will correspond to marker's location
   popupAnchor: [0, -200], // point from which the popup should open relative to the iconAnchor
 });
-
