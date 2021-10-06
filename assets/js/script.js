@@ -27,18 +27,23 @@ for (var i = 0; i < colorarray.length; i++) {
     k +
     "'/>";
 }
-$("#legend").html(legendhtml);
-var covidData;
+
+$("#legend").append(legendhtml);
+
+$("#indexInfo").on("mouseover", function () {
+  $("#stringInfo").show();
+});
+
+$("#indexInfo").on("mouseout", function () {
+  $("#stringInfo").hide();
+});
+
 if (localStorage.getItem("favourites") === null) {
   favourites = [
     { iso: "CHN", country: "China" },
     { iso: "IND", country: "India" },
   ];
 } else {
-  //favourites = [
-  //  { iso: "CHN", country: "China" },
-  //  { iso: "IND", country: "India" },
-  //];
   favourites = JSON.parse(localStorage.getItem("favourites"));
 }
 
@@ -103,6 +108,9 @@ function areaStyle(feature) {
   };
 }
 $("#country_from").on("change", function () {
+  if ($("#result").is(":visible")) {
+    getCountryData(destination);
+  }
   destination = $("#country_to").val();
 });
 
@@ -150,7 +158,7 @@ $("#remove_ok").on("click", function () {
   $("#remove").hide();
   var favdata = [];
   for (var i = 0; i < favourites.length; i++) {
-    if (favourites[i] === destination) {
+    if (favourites[i].iso === destination) {
     } else {
       favdata.push(favourites[i]);
     }
@@ -191,15 +199,12 @@ function getCountryData(destination) {
     "https://www.haulsmart.com/apis/coviddata2.php?country=" + destination;
   fetch(requestUrl)
     .then(function (response) {
-      // console.log(response);
-      // console.log(response.json());
       return response.json();
     })
     .catch(function (error) {
       console.log(error);
     })
     .then(function (data) {
-      console.log(data);
       var info = data.info.replaceAll(
         origin,
         "<span class = 'highlight'>" + origin + "</span>"
@@ -237,7 +242,7 @@ function getCountryData(destination) {
         $("#closeButton").on("click", function () {
           $("#result").hide();
         });
-        console.log(favourites);
+
         for (var i = 0; i < favourites.length; i++) {
           if (favourites[i].iso === $("#country_to :selected").val()) {
             $("#addfav").hide();
@@ -265,7 +270,7 @@ function getCountryBounds(destination) {
   markersLayer.clearLayers();
   var bounds = L.latLngBounds();
   for (var j = 0; j < geojson.features.length; j++) {
-    if (geojson.features[j].properties.adm0_a3 == destination) {
+    if (geojson.features[j].properties.adm0_a3 === destination) {
       if (geojson.features[j].geometry.type == "Polygon") {
         var coords = geojson.features[j].geometry.coordinates[0];
         for (var i = 0; i < coords.length; i++) {
@@ -273,14 +278,21 @@ function getCountryBounds(destination) {
         }
       }
       if (geojson.features[j].geometry.type == "MultiPolygon") {
-        for (
-          var k = 0;
-          k < geojson.features[j].geometry.coordinates.length;
-          k++
-        ) {
-          var coords = geojson.features[j].geometry.coordinates[k][0];
+        if (geojson.features[j].properties.adm0_a3 === "NZL") {
+          var coords = geojson.features[j].geometry.coordinates[7][0];
           for (var i = 0; i < coords.length; i++) {
             bounds.extend(L.latLng(coords[i][1], coords[i][0]));
+          }
+        } else {
+          for (
+            var k = 0;
+            k < geojson.features[j].geometry.coordinates.length;
+            k++
+          ) {
+            var coords = geojson.features[j].geometry.coordinates[k][0];
+            for (var i = 0; i < coords.length; i++) {
+              bounds.extend(L.latLng(coords[i][1], coords[i][0]));
+            }
           }
         }
       }
@@ -290,7 +302,7 @@ function getCountryBounds(destination) {
   map.panTo(bounds.getCenter());
 
   for (var j = 0; j < geojson.features.length; j++) {
-    if (geojson.features[j].properties.adm0_a3 == destination) {
+    if (geojson.features[j].properties.adm0_a3 === destination) {
       var popupdata = geojson.features[j].properties.cdata;
       var iso_a2 = geojson.features[j].properties.iso_a2;
     }
@@ -315,13 +327,13 @@ function getCountryBounds(destination) {
     .addTo(map)
 
     .bindPopup(
-      "<div><img style='position:absolute;top:20px;right:18px;width:40px' src='https://www.countryflags.io/" +
+      "<div><img class='countryFlag' src='https://www.countryflags.io/" +
         iso_a2 +
         "/flat/64.png'><h2 class = 'bindPopupHeader'>" +
         $("#country_to :selected").text() +
-        "</h2><br/><label style='font:bold 12px Arial;cursor:pointer' onclick=\"getCountryData('" +
+        "</h2><br/><label class='travelInfo' onclick=\"getCountryData('" +
         destination +
-        "')\" >Travel Restrictions</label><br/><br/>" +
+        "')\" >More Info</label><br/><br/>" +
         html
     )
     .openPopup();
@@ -335,7 +347,7 @@ function getCountryBounds(destination) {
 
 var needleIcon = L.icon({
   iconUrl: "assets/images/needle.png",
-  iconSize: [50, 50], // size of the icon
-  iconAnchor: [25, 50], // point of the icon which will correspond to marker's location
-  popupAnchor: [0, -50], // point from which the popup should open relative to the iconAnchor
+  iconSize: [50, 50],
+  iconAnchor: [25, 50],
+  popupAnchor: [0, -50],
 });

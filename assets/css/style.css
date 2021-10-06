@@ -86,7 +86,7 @@ header div {
 }
 #search label {
   font: normal 16px Arial;
-  /* color: rgb(0, 102, 255); */
+
   color: #05458a;
 }
 #search select {
@@ -137,7 +137,7 @@ header div {
   width: 500px;
   height: 77%;
   padding: 5px;
-  /* background-color: #e9f1f8; */
+
   background-color: white;
   text-align: left;
   overflow: scroll;
@@ -179,7 +179,7 @@ header div {
   border: none;
   border-radius: 3px;
   background-color: #66b2ff;
-  /* background-color: #0a4a99; */
+
   color: white;
   font: normal 18px arial;
   width: 100%;
@@ -193,11 +193,10 @@ header div {
 
 /* Result Section */
 .result-body {
-  /* background-color: #7bd3ca; */
   font-family: "Poppins", sans-serif;
   font-size: 15px;
   background-color: #e9f1f8;
-  /* background-color: #eef2f6; */
+
   border-radius: 10px;
   padding: 10px;
   margin: 4px 8px;
@@ -282,18 +281,43 @@ h2 {
   margin-left: -100px;
   box-shadow: 5px 5px 5px 5px gray;
 }
+#stringInfo {
+  display: none;
+  position: absolute;
+  background-color: #333;
+  color: white;
+  font-size: 12px;
+  width: 400px;
+  height: 100px;
+  bottom: 40px;
+  left: 50%;
+  margin-left: -200px;
+  box-shadow: 5px 5px 5px 5px gray;
+  z-index: 10;
+  padding: 5px;
+  border-radius: 5px;
+  font-family: "Poppins", sans-serif;
+}
 
 .highlight {
   background-color: #f1e869;
 }
-
-/* .result-refLink {
-  background-color: #94dbd4;
-  border-radius: 10px;
-  padding: 10px;
-  margin: 9px 8px;
-} */
-
+.countryFlag {
+  position: absolute;
+  top: 20px;
+  right: 18px;
+  width: 40px;
+  box-shadow: 2px 2px 2px 2px gray;
+}
+.travelInfo {
+  color: #d63434;
+  font: bold 12px Arial;
+  cursor: pointer;
+  text-decoration: underline;
+}
+#indexInfo {
+  margin-right: 5px;
+}
 @media screen and (max-width: 992px) {
   .navbar a {
     float: none;
