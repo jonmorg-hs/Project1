@@ -246,6 +246,10 @@ function getCountryData(destination) {
           }
         }
         $("#addfav").on("click", function () {
+          $("#addfav").hide();
+          if ($(window).width() > 700) {
+            $("#favourites").show();
+          }
           var obj = {};
           obj.iso = $("#country_to").val();
           obj.country = $("#country_to :selected").text();
