@@ -295,6 +295,12 @@ function getCountryBounds(destination) {
       var iso_a2 = geojson.features[j].properties.iso_a2;
     }
   }
+
+  if ($(window).width() <= 700) {
+    $("#search").hide();
+    $("#favourites").hide();
+  }
+
   var html = "<div style='height:200px;overflow:scroll'>";
   for (const [key, value] of Object.entries(popupdata)) {
     html +=
@@ -319,6 +325,11 @@ function getCountryBounds(destination) {
         html
     )
     .openPopup();
+
+  $(".leaflet-popup-close-button").on("click", function () {
+    $("#search").show();
+    $("#favourites").show();
+  });
   markersLayer.addLayer(marker);
 }
 
