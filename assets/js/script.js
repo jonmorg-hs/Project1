@@ -1,3 +1,5 @@
+//Declaring global variables
+
 var origin;
 var destination;
 var geojson = [];
@@ -17,6 +19,7 @@ var colorarray = [
   "#660000",
 ];
 
+//Building the map legend
 var legendhtml = "";
 for (var i = 0; i < colorarray.length; i++) {
   var k = i * 10 + 10;
@@ -27,8 +30,9 @@ for (var i = 0; i < colorarray.length; i++) {
     k +
     "'/>";
 }
-
 $("#legend").append(legendhtml);
+
+//Event listener for mouseover the legend to see Stringency Index explanation
 
 $("#indexInfo").on("mouseover", function () {
   $("#stringInfo").show();
@@ -38,7 +42,7 @@ $("#indexInfo").on("mouseout", function () {
   $("#stringInfo").hide();
 });
 
-//Getting local stored favorites.
+//Getting local stored favorites, including a check to ensure correct data exists
 
 if (localStorage.getItem("favourites") === null) {
   favourites = [];
@@ -53,6 +57,8 @@ if (localStorage.getItem("favourites") === null) {
   favourites = favcheck;
 }
 
+//Implemeting the Leaflet map
+
 var map = L.map("map", { minZoom: 3, maxZoom: 6 }).setView([51.505, -0.09], 3);
 map.zoomControl.setPosition("bottomright");
 var baselayer = L.tileLayer(
@@ -63,6 +69,12 @@ var baselayer = L.tileLayer(
       '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
   }
 ).addTo(map);
+
+//Adding marker layer to map in order to show and clear
+
+markersLayer.addTo(map);
+
+//Getting the polygon overlay data for the map
 
 $.getJSON(
   "https://www.haulsmart.com/apis/getGeoJson.php?country=",
@@ -76,7 +88,7 @@ $.getJSON(
   }
 );
 
-markersLayer.addTo(map);
+//Iterating through the polygon geosjon data to get name and populate Travelling From and To dropdown lists
 
 function onEachFeature(feature, layer) {
   $("#country_from").append(
@@ -98,12 +110,7 @@ function onEachFeature(feature, layer) {
   });
 }
 
-function onClick(e) {
-  $("#result").hide();
-  destination = e.target.feature.properties.adm0_a3;
-  $("#country_to").val(destination);
-  getCountryBounds(destination);
-}
+//Styling the polygon colors
 
 function areaStyle(feature) {
   return {
@@ -113,23 +120,36 @@ function areaStyle(feature) {
     opacity: 1,
   };
 }
+
+//Click of polygon to get country and zoom to map bounds
+function onClick(e) {
+  $("#result").hide();
+  destination = e.target.feature.properties.adm0_a3;
+  $("#country_to").val(destination);
+  getCountryBounds(destination);
+}
+
+//Selecting the travel from country list to highlight any mention in travel restrictions, nut only if travel restriction info is visible
 $("#country_from").on("change", function () {
+  destination = $("#country_to").val();
   if ($("#result").is(":visible")) {
     getCountryData(destination);
   }
-  destination = $("#country_to").val();
 });
 
+//Selecting the travel to country list to git country position on map
 $("#country_to").on("change", function () {
   $("#result").hide();
   destination = $(this).val();
   getCountryBounds(destination);
 });
 
+//Show/hide favorites list
 $("#fav").on("click", function () {
   $("#favourites").toggle();
 });
 
+//populate locally stored favourites to list
 getFavourites();
 
 function getFavourites() {
@@ -159,6 +179,7 @@ function getFavourites() {
   });
 }
 
+//remove a country from favourites list and local storage
 $("#remove_ok").on("click", function () {
   $("#remove").hide();
   var favdata = [];
@@ -173,10 +194,12 @@ $("#remove_ok").on("click", function () {
   getFavourites();
 });
 
+//cancel the favourite removal prompt
 $("#remove_cancel").on("click", function () {
   $("#remove").hide();
 });
 
+//Show/Hide header panel
 $("#showHeader").on("click", function () {
   $("header").show();
   $("#map").css({ top: "0", height: "calc(80% - 2px)" });
@@ -273,6 +296,7 @@ function getCountryData(destination) {
     });
 }
 
+//Show country location by getting polygon coords to map bounds, adding a needle marker at center on bounds, displaying a popup window with Covid data, and hiding search/favourites if on a mobile device
 function getCountryBounds(destination) {
   markersLayer.clearLayers();
   var bounds = L.latLngBounds();
