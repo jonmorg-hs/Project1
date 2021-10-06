@@ -119,7 +119,7 @@ header div {
   top: calc(21% + 230px);
   left: 10px;
   width: 201px;
-  max-height: 100%;
+  max-height: calc(76% - 230px);
   padding: 10px 30px;
   background-color: #e9f1f8;
   text-align: left;
@@ -131,7 +131,7 @@ header div {
 #result {
   display: none;
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   top: 21%;
   right: 10px;
   width: 500px;
@@ -144,6 +144,7 @@ header div {
   border: normal 2px solid;
   border-radius: 10px;
   box-shadow: 5px 5px 5px 5px gray;
+  max-width: 93%;
 }
 #fav {
   cursor: pointer;
@@ -271,5 +272,15 @@ h2 {
   }
   header div {
     display: none;
+  }
+
+  #search {
+    opacity: 0.8;
+    max-width: 50%;
+    padding: 30px 10px 45px;
+  }
+  #favourites {
+    padding: 10px 10px;
+    opacity: 0.8;
   }
 }
