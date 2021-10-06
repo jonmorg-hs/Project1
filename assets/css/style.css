@@ -209,11 +209,48 @@ h2 {
   display: inline-flex;
   font-weight: 600;
 }
+.bindPopupHeader {
+  margin-left: 0px;
+  color: #041f41;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+}
 
 .country-flag {
   margin-top: 7px;
   margin-left: 4px;
   position: absolute;
+}
+
+#addfav {
+  position: absolute;
+  margin-left: 460px;
+  margin-right: 3px;
+}
+.far {
+  cursor: pointer;
+  font-size: 17px;
+  color: #7f7f7f;
+}
+.far:hover {
+  cursor: pointer;
+  font-size: 17px;
+  color: #66b2ff;
+}
+
+#closeButton {
+  position: absolute;
+  margin-left: 485px;
+}
+.fas {
+  cursor: pointer;
+  font-size: 17px;
+  color: #7f7f7f;
+}
+.fas:hover {
+  cursor: pointer;
+  font-size: 17px;
+  color: black;
 }
 
 .result-quartne-sec {

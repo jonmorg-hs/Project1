@@ -214,17 +214,13 @@ function getCountryData(destination) {
       );
       $("#result")
         .empty()
-        .append("<div style='position:relative'><h2>" + dest + "</h2>")
+        .append("<i id='addfav' class='far fa-star'></i>")
+        .append("<i id='closeButton' class='fas fa-times'></i>")
+        .append("<h2>" + dest + "</h2>")
         .append(
-          "<img style='position:absolute;top:10px;right:150px' src='https://www.countryflags.io/" +
+          "<img class = 'country-flag' src='https://www.countryflags.io/" +
             data.countrycode +
             "/flat/64.png'>"
-        )
-        .append(
-          "<img id='addfav' style='position:absolute;top:10px;right:50px;width:30px' src='assets/images/addfav.png'>"
-        )
-        .append(
-          "<img id='closeButton' style='position:absolute;top:10px;right:10px;width:30px' src='assets/images/close.png'></div>"
         );
       if (!data.info) {
         $("#result").append(
@@ -309,9 +305,9 @@ function getCountryBounds(destination) {
     .addTo(map)
 
     .bindPopup(
-      "<div><img style='position:absolute;top:20px;right:10px;width:40px' src='https://www.countryflags.io/" +
+      "<div><img style='position:absolute;top:20px;right:18px;width:40px' src='https://www.countryflags.io/" +
         iso_a2 +
-        "/flat/64.png'><h2>" +
+        "/flat/64.png'><h2 class = 'bindPopupHeader'>" +
         $("#country_to :selected").text() +
         "</h2><br/><label style='font:bold 12px Arial;cursor:pointer' onclick=\"getCountryData('" +
         destination +
