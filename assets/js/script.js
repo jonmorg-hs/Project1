@@ -38,13 +38,19 @@ $("#indexInfo").on("mouseout", function () {
   $("#stringInfo").hide();
 });
 
+//Getting local stored favorites.
+
 if (localStorage.getItem("favourites") === null) {
-  favourites = [
-    { iso: "CHN", country: "China" },
-    { iso: "IND", country: "India" },
-  ];
+  favourites = [];
 } else {
   favourites = JSON.parse(localStorage.getItem("favourites"));
+  var favcheck = [];
+  for (var i = 0; i < favourites.length; i++) {
+    if (favourites[i].hasOwnProperty("iso")) {
+      favcheck.push(favourites[i]);
+    }
+  }
+  favourites = favcheck;
 }
 
 var map = L.map("map", { minZoom: 3, maxZoom: 6 }).setView([51.505, -0.09], 3);
@@ -124,6 +130,8 @@ $("#fav").on("click", function () {
   $("#favourites").toggle();
 });
 
+getFavourites();
+
 function getFavourites() {
   $("#favourites").empty();
   for (var i = 0; i < favourites.length; i++) {
@@ -135,24 +143,21 @@ function getFavourites() {
         "<i class='bin fa fa-trash'></i></div>"
     );
   }
+  $(".favs").on("click", function () {
+    $("#result").hide();
+    destination = $(this).attr("iso");
+    $("#country_to").val(destination);
+    getCountryBounds(destination);
+  });
+
+  $(".bin").on("click", function () {
+    destination = $(this).parent().text();
+    $("#remove_text").html(
+      "Do you wish to remove " + destination + " from your favourites"
+    );
+    $("#remove").show();
+  });
 }
-
-getFavourites();
-
-$(".favs").on("click", function () {
-  $("#result").hide();
-  destination = $(this).attr("iso");
-  $("#country_to").val(destination);
-  getCountryBounds(destination);
-});
-
-$(".bin").on("click", function () {
-  destination = $(this).parent().text();
-  $("#remove_text").html(
-    "Do you wish to remove " + destination + " from your favourites"
-  );
-  $("#remove").show();
-});
 
 $("#remove_ok").on("click", function () {
   $("#remove").hide();
@@ -246,10 +251,12 @@ function getCountryData(destination) {
         for (var i = 0; i < favourites.length; i++) {
           if (favourites[i].iso === $("#country_to :selected").val()) {
             $("#addfav").hide();
+            break;
           } else {
             $("#addfav").show();
           }
         }
+
         $("#addfav").on("click", function () {
           $("#addfav").hide();
           if ($(window).width() > 700) {
