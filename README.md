@@ -1,8 +1,10 @@
-# vac CIN nation
+# VAC cin ATION
+
+CIN - Country I Need - for a vacation in
 
 <h2>Task</h2>
 
-For the first group project, we haven been tasked with using two APIs, local storage and any JS or CSS libraries (excl Bootstrap), to develop a webpage for any purpose.
+For the first group project, we were been tasked with using two APIs, local storage and any JS or CSS libraries (excl Bootstrap), to develop a webpage for any purpose.
 
 <h2>Idea</h2>
 
