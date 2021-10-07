@@ -22,7 +22,7 @@ When the User clicks More Info, the current travel restriction information is di
 
 The User can save the chosen country to their favourites for quick reference later.
 
-<br/><img src="assets/images/screenshot5_project1.png" >
+<br/><img src="assets/images/screenshotFinal.png" >
 
 <h2>Resources</h2>
 
